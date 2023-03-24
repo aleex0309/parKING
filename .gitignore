@@ -1,5 +1,11 @@
 # Created by https://www.gitignore.io
 
+
+# Per el vscode
+.vscode
+.docke
+
+
 ### OSX ###
 .DS_Store
 .AppleDouble
