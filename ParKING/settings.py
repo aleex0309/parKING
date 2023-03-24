@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-x35a4sm6v@uvxr9w6l9@q3g*0*!b_a8w1zy)q#t7g)sq*76(2^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'ParKING.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER' : 'admin',
-        'PASSWORD': 'admin',
-        'HOST' : 'database',
+        'USER' : 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST' : 'db',
         'PORT' : '5432',
 
     }

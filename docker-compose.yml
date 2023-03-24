@@ -1,14 +1,15 @@
 version: '3.4'
 
 services:
-  parking:
-    image: parking
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+  web:
+    build: .
     ports:
       - 8000:8000
-  database:
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+  db:
     image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data/
