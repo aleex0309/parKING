@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'ParKING.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': BASE_DIR / 'db.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
         'USER' : 'admin',
         'PASSWORD': 'admin',
-        'HOST' : 'localhost',
-        'PORT' : '22',
+        'HOST' : 'database',
+        'PORT' : '5432',
 
     }
 }
