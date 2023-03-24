@@ -10,7 +10,7 @@ Universtat de Lleida
 Developers
 -------------
 - Alexandru Cristian Stoia - [@aleex0309](https://github.com/aleex0309)
-- Pere Muñoz Figuerol
+- Pere Muñoz Figuerol - [@peremunoz](https://github.com/peremunoz)
 - Rafel Salgueiro Santacreu
 - Marc Gaspà Joval - [@marcgj](https://github.com/marcgj) 
 - Andreu Pérez Torra
