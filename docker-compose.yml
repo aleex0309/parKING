@@ -1,20 +1,18 @@
 version: '3.4'
 
 services:
+
   web:
     build: .
     ports:
       - 8000:8000
-    volumes:
-      - .:/app
     depends_on:
       - db
+     
   db:
-    image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
+    image: postgres
     environment:
-      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_HOST_AUTH_METHOD: trust
 
-volumes:
-  postgres_data:
