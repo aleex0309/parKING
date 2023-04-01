@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-
   web:
+    env_file: .env
     build: .
     ports:
       - 8000:8000
@@ -10,9 +10,10 @@ services:
       - db
      
   db:
+    env_file: .env
     image: postgres
     environment:
-      POSTGRES_PASSWORD: admin
-      POSTGRES_USER: admin
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: $DATABASE_PASS
+      POSTGRES_USER: $DATABASE_USER
+      POSTGRES_HOST_AUTH_METHOD: $DATABASE_AUTH_METHOD
 
