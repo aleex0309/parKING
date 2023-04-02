@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -8,20 +8,38 @@ class Reservation(models.Model):
     pass
 
 
-class Univesity(models.Model):
+class University(models.Model):
     name = models.CharField(max_length=256)
 
+    def __str__(self) -> str:
+        return self.name
 
-# La classe usuari s'ha de fer diferent per temes de la autenticacio que ja te django
-# AL FINAL UN USUARI NOMES PODRA SER DE UNA UNIVERSITAT
-# Al fer extend de abstract user ja hi han els seguents camps creats
-# username, first_name, last_name, email, is_staff, is_active, date_joined, password, get_full_name(), get_short_name()
-class CustomUser(AbstractUser):
-    university = models.ForeignKey(Univesity, on_delete=models.CASCADE())
+
+class UserUniversity(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return str(self.user)+"@"+str(self.university)
 
 
 class Vehicle(models.Model):
-    pass
+    TYPES = [('motorbike', 'motorbike'), ('car', 'car'), ("van", 'van')]
+
+    plate = models.CharField(max_length=128)
+    type = models.CharField(choices=TYPES, max_length=50)
+    emissions = models.CharField(max_length=1)
+
+    def __str__(self) -> str:
+        return self.plate
+
+
+class VehicleUser(models.Model):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return str(self.vehicle)+"@"+str(self.user)
 
 
 class ParkingSpot(models.Model):
