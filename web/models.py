@@ -9,12 +9,15 @@ class Reservation(models.Model):
 
 
 class Univesity(models.Model):
-    pass
+    name = models.CharField(max_length=256)
 
 
 # La classe usuari s'ha de fer diferent per temes de la autenticacio que ja te django
+# AL FINAL UN USUARI NOMES PODRA SER DE UNA UNIVERSITAT
+# Al fer extend de abstract user ja hi han els seguents camps creats
+# username, first_name, last_name, email, is_staff, is_active, date_joined, password, get_full_name(), get_short_name()
 class CustomUser(AbstractUser):
-    pass
+    university = models.ForeignKey(Univesity, on_delete=models.CASCADE())
 
 
 class Vehicle(models.Model):
