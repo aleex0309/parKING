@@ -23,7 +23,6 @@ TYPES = [('motorbike', 'motorbike'), ('car', 'car'), ("van", 'van')]
 
 
 class Vehicle(models.Model):
-
     plate = models.CharField(max_length=128)
     type = models.CharField(choices=TYPES, max_length=50)
     emissions = models.CharField(max_length=1)
@@ -48,7 +47,7 @@ class Parking(models.Model):
     van_capacity = models.IntegerField()
 
     def __str__(self):
-        return f'{self.id}'
+        return f'{self.university}@{self.id}'
 
 
 class ParkingSpot(models.Model):
