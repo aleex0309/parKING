@@ -5,7 +5,15 @@ from django.contrib.auth.models import User
 
 
 class Reservation(models.Model):
-    pass
+    id_reservation = models.CharField(max_length=128)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey('Vehicle', on_delete=models.CASCADE)
+    date = models.DateTimeField()
+    price = models.FloatField()
+
+    def __str__(self) -> str:
+        return self.id_reservation
+
 
 
 class University(models.Model):
@@ -43,8 +51,20 @@ class VehicleUser(models.Model):
 
 
 class ParkingSpot(models.Model):
-    pass
+    id_spot = models.CharField(max_length=128)
+    spot_type = models.CharField(max_length=128)
+    free = models.BooleanField(default=True)
+
+    def __str__(self) -> str:
+        return self.id_spot
 
 
 class Parking(models.Model):
-    pass
+    id_parking = models.CharField(max_length=128)
+    motrbike_capacity = models.IntegerField()
+    car_capacity = models.IntegerField()
+    van_capacity = models.IntegerField()
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.id_parking
