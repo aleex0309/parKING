@@ -19,8 +19,10 @@ class UserUniversity(models.Model):
         return f'{str(self.user)+"@"+str(self.university)}'
 
 
+TYPES = [('motorbike', 'motorbike'), ('car', 'car'), ("van", 'van')]
+
+
 class Vehicle(models.Model):
-    TYPES = [('motorbike', 'motorbike'), ('car', 'car'), ("van", 'van')]
 
     plate = models.CharField(max_length=128)
     type = models.CharField(choices=TYPES, max_length=50)
@@ -38,20 +40,20 @@ class VehicleUser(models.Model):
         return f'{str(self.vehicle)+"@"+str(self.user)}'
 
 
-class ParkingSpot(models.Model):
-    spot_type = models.CharField(max_length=128)
-    free = models.BooleanField(default=True)
-
-    def __str__(self):
-        return f'{self.id}'
-
-
 class Parking(models.Model):
     university = models.ForeignKey(University, on_delete=models.CASCADE)
 
     motorbike_capacity = models.IntegerField()
     car_capacity = models.IntegerField()
     van_capacity = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.id}'
+
+
+class ParkingSpot(models.Model):
+    parking = models.ForeignKey(Parking, on_delete=models.CASCADE)
+    type = models.CharField(choices=TYPES, max_length=50)
 
     def __str__(self):
         return f'{self.id}'
