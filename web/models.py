@@ -4,18 +4,6 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class Reservation(models.Model):
-    id_reservation = models.CharField(max_length=128)
-    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    vehicle = models.ForeignKey('Vehicle', on_delete=models.CASCADE)
-    date = models.DateTimeField()
-    price = models.FloatField()
-
-    def __str__(self):
-        return f'{self.id_reservation}'
-
-
-
 class University(models.Model):
     name = models.CharField(max_length=256)
 
@@ -61,10 +49,21 @@ class ParkingSpot(models.Model):
 
 class Parking(models.Model):
     id_parking = models.CharField(max_length=128)
-    motrbike_capacity = models.IntegerField()
+    motorbike_capacity = models.IntegerField()
     car_capacity = models.IntegerField()
     van_capacity = models.IntegerField()
     university = models.ForeignKey(University, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.id_parking}'
+
+
+class Reservation(models.Model):
+    id_reservation = models.CharField(max_length=128)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+    price = models.FloatField()
+
+    def __str__(self):
+        return f'{self.id_reservation}'
