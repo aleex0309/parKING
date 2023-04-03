@@ -42,10 +42,6 @@ class VehicleUser(models.Model):
 class Parking(models.Model):
     university = models.ForeignKey(University, on_delete=models.CASCADE)
 
-    motorbike_capacity = models.IntegerField()
-    car_capacity = models.IntegerField()
-    van_capacity = models.IntegerField()
-
     def __str__(self):
         return f'{self.university}@{self.id}'
 
