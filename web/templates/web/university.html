@@ -4,5 +4,6 @@
 
 <ul>
     {% for parking in parkings %}
-        <li><a href="">{{ parking.description }}</a></li>
+        <li><a href="{% url 'parkingSpots' university.id parking.id %}">{{ parking.description }}</a></li>
     {% endfor %}
+</ul>

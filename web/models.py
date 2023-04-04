@@ -41,7 +41,6 @@ class VehicleUser(models.Model):
 
 class Parking(models.Model):
     university = models.ForeignKey(University, on_delete=models.CASCADE)
-
     description = models.CharField(max_length=256)
 
     def __str__(self):

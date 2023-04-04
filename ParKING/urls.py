@@ -20,5 +20,6 @@ import web.views as wv
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', wv.home, name='home'), 
-    path('universitat/<int:id_university>/', wv.university, name='parkings')
+    path('universitat/<int:id_university>/', wv.university, name='parkings'),
+    path('university/<int:id_university>/parking/<int:id_parking>', wv.parking, name='parkingSpots')
 ]

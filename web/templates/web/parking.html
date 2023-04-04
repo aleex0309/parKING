@@ -1,0 +1,9 @@
+<h1>{{parking.description}}</h1>
+
+<p>Motorbikes: {{count_motorbikes}}</p>
+<p>Cars: {{count_cars}}</p>
+<ul>
+    {% for spot in spots %}
+    <li>Nº plaça: {{spot.id}} Tipus: {{ spot.type }} </li>
+    {% endfor %}
+</ul>
