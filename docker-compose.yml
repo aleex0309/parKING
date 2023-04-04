@@ -5,6 +5,8 @@ services:
     env_file: .env
     build: 
       dockerfile: Dockerfile.django
+    volumes:
+      - .:/app
     depends_on:
       - db
      
