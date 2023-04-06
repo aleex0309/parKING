@@ -4,6 +4,7 @@ services:
   web:
     env_file: .env
     build: 
+      context: .
       dockerfile: Dockerfile.django
     volumes:
       - .:/app
@@ -20,6 +21,7 @@ services:
 
   proxyserver:
     build:
+      context: .
       dockerfile: Dockerfile.nginx
     ports:
       - 80:80
