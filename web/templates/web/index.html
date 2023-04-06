@@ -1,0 +1,8 @@
+<h1>ParKING</h1>
+
+<h2>Universities</h2>
+
+<ul>
+    {% for university in universities %}
+        <li><a href="{% url 'parkings' university.id %}">{{ university.name }}</a></li>
+    {% endfor %}

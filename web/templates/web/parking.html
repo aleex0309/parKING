@@ -1,0 +1,15 @@
+<h1>{{parking.description}}</h1>
+
+<p>Motorbikes: {{count_motorbikes}}</p>
+<p>Cars: {{count_cars}}</p>
+<ul>
+  {% for spot in spots %} {% if spot.free %}
+  <li style="color: green">
+    [FREE] Nº: {{spot.id}} &emsp; Type: {{ spot.type }}
+  </li>
+  {% else %}
+  <li style="color: red">
+    [OCCUPIED] Nº: {{spot.id}} &emsp; Type: {{ spot.type }}
+  </li>
+  {% endif %} {% endfor %}
+</ul>

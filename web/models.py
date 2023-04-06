@@ -41,7 +41,6 @@ class VehicleUser(models.Model):
 
 class Parking(models.Model):
     university = models.ForeignKey(University, on_delete=models.CASCADE)
-
     description = models.CharField(max_length=256)
 
     def __str__(self):
@@ -51,6 +50,7 @@ class Parking(models.Model):
 class ParkingSpot(models.Model):
     parking = models.ForeignKey(Parking, on_delete=models.CASCADE)
     type = models.CharField(choices=TYPES, max_length=50)
+    free = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.id}'
