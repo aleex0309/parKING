@@ -3,9 +3,10 @@ version: '3.4'
 services:
   web:
     env_file: .env
-    build: .
-    ports:
-      - 8000:8000
+    build: 
+      dockerfile: Dockerfile.django
+    volumes:
+      - .:/app
     depends_on:
       - db
      
@@ -17,3 +18,12 @@ services:
       POSTGRES_USER: $DATABASE_USER
       POSTGRES_HOST_AUTH_METHOD: $DATABASE_AUTH_METHOD
 
+  proxyserver:
+    build:
+      dockerfile: Dockerfile.nginx
+    ports:
+      - 80:80
+    depends_on:
+      - web
+
+    
