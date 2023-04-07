@@ -4,8 +4,8 @@ Deliverable 1:
 URL to GitHub: https://github.com/aleex0309/parKING/tree/Deliverable1 (Check branch "Deliverable1")
 
 Grade division:
-    Alexandru Cristian Stoia - 
-    Pere Muñoz Figuerol - 
-    Rafel Salgueiro Santacreu - 
-    Marc Gaspà Joval -
-    Andreu Pérez Torra - 
+    Alexandru Cristian Stoia - 22%
+    Pere Muñoz Figuerol - 22%
+    Rafel Salgueiro Santacreu - 22%
+    Marc Gaspà Joval - 22%
+    Andreu Pérez Torra - 12%
