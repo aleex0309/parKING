@@ -18,7 +18,20 @@ Developers
 Usage
 ---------
 
-To Build the web:
+**To Build the web:**
+1. Build
 ```
-Comanda
+docker-compose up -d --build  
 ```
+2. Run
+```
+docker-compose up
+```
+3. Do makemigrations  & migrate in the container
+```
+python manage.py makemigrations
+```
+```
+python manage.py migrate
+```
+4. Go to [LocalHost](http://0.0.0.0/)
