@@ -1,8 +1,95 @@
-<h1>ParKING</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ParKING - Universities</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
 
-<h2>Universities</h2>
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+      }
 
-<ul>
-    {% for university in universities %}
+      h1 {
+        margin: 0;
+        font-size: 48px;
+      }
+
+      h2 {
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-size: 36px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: #333;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      li {
+        margin: 20px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #2196f3;
+        padding: 10px 20px;
+        border-radius: 25px;
+        box-shadow: 2px 2px 5px #ccc;
+        transition: all 0.3s ease;
+        font-size: 20px;
+      }
+
+      a:hover {
+        background-color: #fff;
+        color: #2196f3;
+        box-shadow: 2px 2px 10px #ccc;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+      }
+
+      p {
+        font-size: 24px;
+        text-align: center;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>ParKING</h1>
+    </header>
+    <div class="container">
+      <h2>Universities</h2>
+      <ul>
+        {% for university in universities %}
         <li><a href="{% url 'parkings' university.id %}">{{ university.name }}</a></li>
-    {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="container">
+      <p>Thanks for using ParKING! Check back soon for more features and updates.</p>
+    </div>
+  </body>
+</html>
