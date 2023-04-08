@@ -1,15 +1,107 @@
-<h1>{{parking.description}}</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title style="color: #333">{{parking.university}} Parking- Spot Availability</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
 
-<p>Motorbikes: {{count_motorbikes}}</p>
-<p>Cars: {{count_cars}}</p>
-<ul>
-  {% for spot in spots %} {% if spot.free %}
-  <li style="color: green">
-    [FREE] Nº: {{spot.id}} &emsp; Type: {{ spot.type }}
-  </li>
-  {% else %}
-  <li style="color: red">
-    [OCCUPIED] Nº: {{spot.id}} &emsp; Type: {{ spot.type }}
-  </li>
-  {% endif %} {% endfor %}
-</ul>
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 48px;
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: #ffffff;
+      }
+
+      p {
+        font-size: 24px;
+        text-align: center;
+        color: #666;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      li {
+        margin: 20px;
+        font-size: 20px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #2196f3;
+        padding: 10px 20px;
+        border-radius: 25px;
+        box-shadow: 2px 2px 5px #ccc;
+        transition: all 0.3s ease;
+        font-size: 20px;
+      }
+
+      a:hover {
+        background-color: #fff;
+        color: #2196f3;
+        box-shadow: 2px 2px 10px #ccc;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+      }
+
+      .free {
+        color: green;
+      }
+
+      .occupied {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>{{parking.university}} - Spot Availability</h1>
+    </header>
+    <div class="container">
+      <h2>Free Spots</h2>
+      <ul>
+        {% for spot in spots %} {% if spot.free %}
+        <li class="free">
+          Nº: {{spot.id}} &emsp; Type: {{ spot.type }}
+        </li>
+        {% endif %} {% endfor %}
+      </ul>
+      <h2>Occupied Spots</h2>
+      <ul>
+        {% for spot in spots %} {% if not spot.free %}
+        <li class="occupied">
+          Nº: {{spot.id}} &emsp; Type: {{ spot.type }}
+        </li>
+        {% endif %} {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
