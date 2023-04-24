@@ -18,6 +18,9 @@ services:
       POSTGRES_PASSWORD: $DATABASE_PASS
       POSTGRES_USER: $DATABASE_USER
       POSTGRES_HOST_AUTH_METHOD: $DATABASE_AUTH_METHOD
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
 
   proxyserver:
     build:
