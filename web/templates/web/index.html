@@ -22,11 +22,6 @@
         font-size: 48px;
       }
       
-      .login {
-        position: absolute;
-        top: 25px;
-        right: 0;
-      }
 
       h2 {
         margin-top: 40px;
@@ -53,6 +48,9 @@
       }
 
       a {
+        position: absolute;
+        top: 22px;
+        right: 10px;
         text-decoration: none;
         color: #fff;
         background-color: #2196f3;
@@ -85,7 +83,7 @@
   <body>
     <header>
       <h1>ParKING</h1>
-        <button class="login"><a href="{% url 'login' %}">Login</a></button>
+        <a href="{% url 'login' %}">Login</a>
     </header>
     <div class="container">
       <h2>Universities</h2>
