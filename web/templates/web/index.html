@@ -26,8 +26,6 @@
         position: absolute;
         top: 25px;
         right: 0;
-        background-color: transparent;
-        border: none;
       }
 
       h2 {
@@ -87,9 +85,7 @@
   <body>
     <header>
       <h1>ParKING</h1>
-      <div class="login">
-        <button><a href="">Login</a></button>
-      </div>
+        <button class="login"><a href="{% url 'login' %}">Login</a></button>
     </header>
     <div class="container">
       <h2>Universities</h2>
