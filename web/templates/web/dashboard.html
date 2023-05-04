@@ -32,18 +32,28 @@
           <hr class="hr">
 
           <!-- Start of vehicle rows -->
+          {% for vehicle in vehicles%}
           <div class="col">
             <div class="row mb-3 align-items-center border border-white rounded m-1 p-3">
               <div class="col col-10">
-                <h2 class="d-inline-block m-0">1234XYZ</h2>
+                <h2 class="d-inline-block m-0">{{vehicle.plate}}</h2>
+                {% if vehicle.type == "car" %}
                 <i class="bi bi-car-front-fill m-4" style="font-size: 2rem;"></i>
-                <h2 class="d-inline-block m-0">A</h2>
+                {%elif vehicle.type == "motorbike"%}
+                <i class="bi bi-bicycle m-4" style="font-size: 2rem;"></i>
+                {%elif vehicle.type == "van"%}
+                <i class="bi bi-truck-front-fill m-4" style="font-size: 2rem;"></i>
+                {%else%}
+                <i class="bi bi-bi-question m-4" style="font-size: 2rem;"></i>
+                {%endif%}
+                <h2 class="d-inline-block m-0">{{vehicle.emissions}}</h2>
               </div>
               <div class="col col-2" align="right">
                 <button type="button" class="btn btn-danger bi bi-trash-fill"></button>
               </div>
             </div>
           </div>
+          {%endfor%}
         </div>
 
         <!-- Reservations Column -->

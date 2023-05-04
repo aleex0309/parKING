@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, Http404
-from web.models import University, Parking, ParkingSpot, TYPES, Reservation
+from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, Vehicle
 
 # Create your views here.
 
@@ -37,5 +37,8 @@ def dashboard(request: HttpRequest):
 
     reservations = Reservation.objects.filter(user=user)
 
+    vehicleUser = VehicleUser.objects.filter(user=user)
+    vehicles = [vu.vehicle for vu in vehicleUser]
+
     return render(request, "web/dashboard.html",
-                  {"user": user, "reservations": reservations})
+                  {"user": user, "reservations": reservations, "vehicles": vehicles})
