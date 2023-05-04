@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest, Http404
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpRequest, Http404, HttpResponseForbidden
 from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, Vehicle
 
 # Create your views here.
@@ -42,3 +42,15 @@ def dashboard(request: HttpRequest):
 
     return render(request, "web/dashboard.html",
                   {"user": user, "reservations": reservations, "vehicles": vehicles})
+
+
+def delete_vehicle(request: HttpRequest, id_vehicle):
+    user = request.user
+
+    # Check if a vehicle is owned by a user
+    vehicle_user = VehicleUser.objects.get(user=user, vehicle=id_vehicle)
+    if not vehicle_user:
+        raise HttpResponseForbidden("")
+
+    vehicle_user.delete()
+    return redirect("dashboard")

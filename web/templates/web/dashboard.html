@@ -4,20 +4,19 @@
   <title>Dashboard</title>
   <!-- Bootstrap 5  -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
   <!-- Bootstrap icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 </head>
 
 <body class="text-light">
-  <div class="container-fluid mt-4 bg-dark" style="min-height: 90vh;">
+  <div class="container-fluid mt-4 bg-dark" style="min-height: 90vh">
     <div class="row p-3">
       <div class="col">
         <h2>{{ user.username }}</h2>
       </div>
-      <hr class="hr">
+      <hr class="hr" />
       <div class="row mt-4">
-
         <!-- Vehicles Column -->
         <div class="col-lg-6 col-12 mb-4">
           <div class="row">
@@ -29,7 +28,7 @@
               <button type="button" class="btn btn-success">Add</button>
             </div>
           </div>
-          <hr class="hr">
+          <hr class="hr" />
 
           <!-- Start of vehicle rows -->
           {% for vehicle in vehicles%}
@@ -38,18 +37,21 @@
               <div class="col col-10">
                 <h2 class="d-inline-block m-0">{{vehicle.plate}}</h2>
                 {% if vehicle.type == "car" %}
-                <i class="bi bi-car-front-fill m-4" style="font-size: 2rem;"></i>
+                <i class="bi bi-car-front-fill m-4" style="font-size: 2rem"></i>
                 {%elif vehicle.type == "motorbike"%}
-                <i class="bi bi-bicycle m-4" style="font-size: 2rem;"></i>
+                <i class="bi bi-bicycle m-4" style="font-size: 2rem"></i>
                 {%elif vehicle.type == "van"%}
-                <i class="bi bi-truck-front-fill m-4" style="font-size: 2rem;"></i>
+                <i class="bi bi-truck-front-fill m-4" style="font-size: 2rem"></i>
                 {%else%}
-                <i class="bi bi-bi-question m-4" style="font-size: 2rem;"></i>
+                <i class="bi bi-bi-question m-4" style="font-size: 2rem"></i>
                 {%endif%}
                 <h2 class="d-inline-block m-0">{{vehicle.emissions}}</h2>
               </div>
               <div class="col col-2" align="right">
-                <button type="button" class="btn btn-danger bi bi-trash-fill"></button>
+                <form action="{% url 'vehicle_delete' vehicle.id %}" method="POST" style="margin-block-end: 0">
+                  {% csrf_token %}
+                  <button type="submit" class="d-inline btn btn-danger bi bi-trash-fill"></button>
+                </form>
               </div>
             </div>
           </div>
@@ -67,7 +69,7 @@
               <button type="button" class="btn btn-primary">New</button>
             </div>
           </div>
-          <hr class="hr">
+          <hr class="hr" />
           <!-- Start of reservation rows -->
           <div class="col">
             {% for reservation in reservations %}
@@ -77,7 +79,9 @@
                 <h5 class="">{{reservation.vehicle.plate}}</h5>
               </div>
               <div class="col align-items-center">
-                <h4 class="mb-0">{{reservation.parking_spot.parking.university}}</h4>
+                <h4 class="mb-0">
+                  {{reservation.parking_spot.parking.university}}
+                </h4>
               </div>
               <div class="col-2">
                 <h3 class="d-inline">{{reservation.parking_spot}}</h3>
@@ -86,12 +90,9 @@
             {% endfor %}
           </div>
         </div>
-
       </div>
     </div>
   </div>
-  </div>
-
 
   <!-- Bootstrap 5  -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

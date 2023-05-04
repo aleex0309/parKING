@@ -61,12 +61,8 @@ class Reservation(models.Model):
     date = models.DateTimeField()
     price = models.FloatField()
 
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    parking_spot = models.ForeignKey(ParkingSpot, on_delete=models.DO_NOTHING)
+
     def __str__(self):
         return f'{self.id}'
-
-class ParkingReservation(models.Model):
-    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
-    parking_spot = models.ForeignKey(ParkingSpot, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{str(self.reservation)+"@"+str(self.parking_spot)}'
