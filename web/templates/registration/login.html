@@ -12,24 +12,50 @@
       <p>Please login to see this page.</p>
     {% endif %}
   {% endif %}
+<html>
+  <head>
+    <style>
+      body{
+        margin: 0;
+        padding: 0;
+        font-family: Arial;
+      }
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+      }
 
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="login">
-    <input type="hidden" name="next" value="{{ next }}">
-  </form>
+      h1 {
+        margin: 0;
+        font-size: 48px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>ParKING</h1>
+    </header>
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td>{{ form.username.label_tag }}</td>
+          <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+          <td>{{ form.password.label_tag }}</td>
+          <td>{{ form.password }}</td>
+        </tr>
+      </table>
+      <input type="submit" value="login">
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
 
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+  </body>
+</html>
 
 {% endblock %}
 
