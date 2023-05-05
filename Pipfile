@@ -8,6 +8,7 @@ django = "*"
 psycopg2-binary = "*"
 behave = "*"
 behave-django = "*"
+splinter = "*"
 
 [dev-packages]
 
