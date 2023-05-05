@@ -47,7 +47,7 @@ def dashboard(request: HttpRequest):
 def delete_vehicle(request: HttpRequest, id_vehicle):
     user = request.user
 
-    # Check if a vehicle is owned by a user
+    # Check if a vehicle is owned by the user
     vehicle_user = VehicleUser.objects.get(user=user, vehicle=id_vehicle)
     if not vehicle_user:
         raise HttpResponseForbidden("")
