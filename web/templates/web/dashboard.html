@@ -15,7 +15,13 @@
       <div class="col">
         <h2>{{ user.username }}</h2>
       </div>
-      <div class="col" align="right"><button class="btn btn-danger" type="button">Logout</button></div>
+      <!-- Logout Button -->
+      <div class="col" align="right">
+        <form action={% url "logout" %} method="post">
+          {% csrf_token %}
+          <button class="btn btn-danger" type="submit">Logout</button>
+        </form>
+      </div>
       <hr class="hr" />
       <div class="row mt-4">
         <!-- Vehicles Column -->
