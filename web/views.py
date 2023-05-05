@@ -35,6 +35,11 @@ def parking(request, id_university, id_parking):
 def dashboard(request: HttpRequest):
     user = request.user
 
+    # Check if authenticated
+    if not user.is_authenticated:
+        return HttpResponseForbidden(
+            "You need to be logged in to use this feature")
+
     reservations = Reservation.objects.filter(user=user)
 
     vehicleUser = VehicleUser.objects.filter(user=user)
