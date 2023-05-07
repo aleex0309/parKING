@@ -48,10 +48,21 @@
         margin: 20px;
       }
 
-      a {
+      .login_button {
         position: absolute;
         top: 22px;
         right: 10px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #2196f3;
+        padding: 10px 20px;
+        border-radius: 25px;
+        box-shadow: 2px 2px 5px #ccc;
+        transition: all 0.3s ease;
+        font-size: 20px;
+      }
+      
+      a {
         text-decoration: none;
         color: #fff;
         background-color: #2196f3;
@@ -84,7 +95,7 @@
   <body>
     <header>
       <h1>ParKING</h1>
-        <a href="{% url 'login' %}">Login</a>
+        <a class="login_button" href="{% url 'login' %}">Login</a>
     </header>
     <div class="container">
       <h2>Universities</h2>
