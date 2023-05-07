@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import Http404
 from web.models import University, Parking, ParkingSpot, TYPES
 
 # Create your views here.
@@ -25,3 +25,7 @@ def parking(request, id_university, id_parking):
     car_spots = ParkingSpot.objects.filter(parking=id_parking, type=TYPES[1][1])
     motorbike_spots = ParkingSpot.objects.filter(parking=id_parking, type=TYPES[0][1])
     return render(request, "web/parking.html", {"parking":parking, "spots":spots, "count_cars":len(car_spots), "count_motorbikes":len(motorbike_spots)})
+
+def reserve(request):
+    
+    return render(request, "web/reserve.html", {})
