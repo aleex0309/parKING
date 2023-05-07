@@ -20,11 +20,16 @@ import web.views as wv
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', wv.home, name='home'), 
+    path('', wv.home, name='home'),
     path('university/<int:id_university>/', wv.university, name='parkings'),
-    path('university/<int:id_university>/parking/<int:id_parking>', wv.parking, name='parkingSpots')
+    path('university/<int:id_university>/parking/<int:id_parking>',
+         wv.parking, name='parkingSpots'),
+
+    path("dashboard/", wv.dashboard, name="dashboard"),
+    path("vehicle/delete/<int:id_vehicle>",
+         wv.delete_vehicle, name="vehicle_delete")
 ]
 
 urlpatterns += [
-   path('accounts/', include('django.contrib.auth.urls'), name='login'),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]
