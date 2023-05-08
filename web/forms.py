@@ -1,11 +1,11 @@
 from django import forms
-from web.models import TYPES, ParkingSpot, Parking, University, VehicleUser, Reservation
+from web.models import TYPES, ParkingSpot, Parking, University, VehicleUser, ParkingReservation
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 
 class ReservationForm(forms.Form):
     class Meta:
-        model = Reservation
+        model = ParkingReservation
         fields = ['user', 'vehicle', 'parking_spot']
     
     def __init__(self, *args, **kwargs):
@@ -16,4 +16,5 @@ class ReservationForm(forms.Form):
             "You need to be logged in to use this feature")
         self.fields['vehicle'].queryset = VehicleUser.objects.filter(user=self.user)
         self.fields['parking_spot'].queryset = ParkingSpot.objects.filter(free=True)
-        
+        self.fields['University'].queryset = University.objects.filter()
+

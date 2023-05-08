@@ -55,28 +55,28 @@ def delete_vehicle(request: HttpRequest, id_vehicle):
     return redirect("dashboard")
 
 
-def reserve(request: HttpRequest, id_parking_spot):
+def reserve(request: HttpRequest):
     user = request.user
 
     # Check if authenticated
     if not user.is_authenticated:
         return HttpResponseForbidden(
             "You need to be logged in to use this feature")
+    
+        # Check if user has a vehicle
+    vehicle_user = VehicleUser.objects.filter(user=user)
+    if not vehicle_user:
+        return redirect("dashboard")
 
     # Check if parking spot exists
     try:
-        parking_spot = ParkingSpot.objects.get(id=id_parking_spot)
+        parking_spot = ParkingSpot.objects.get(id=ParkingSpot.id)
     except ParkingSpot.DoesNotExist:
         raise Http404("Parking spot does not exist")
 
     # Check if parking spot is free
     if not parking_spot.free:
         raise HttpResponseForbidden("Parking spot is not free")
-
-    # Check if user has a vehicle
-    vehicle_user = VehicleUser.objects.filter(user=user)
-    if not vehicle_user:
-        return redirect("dashboard")
 
     # Check if vehicle is allowed
     vehicle = vehicle_user[0].vehicle

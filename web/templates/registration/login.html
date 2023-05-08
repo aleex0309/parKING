@@ -53,11 +53,13 @@
             <td>{{ form.password }}</td>
           </tr>
         </table>
-      </form>
-      <div class="ccol-4 d-flex justify-content-center m-3">
-        <input class="btn btn-primary " type="submit" value="Login" href="{% url 'home' %}"> 
+        <div class="ccol-4 d-flex justify-content-center m-3">
+        <input class="btn btn-primary " type="submit" value="Login"> <a href="{% url 'dashboard' %}"></a></input>
         <input type="hidden" name="next" value="{{ next }}">
       </div>
+
+      </form>
+      
       <p class="ccol-4 d-flex justify-content-center m-3"><a href="{% url 'password_reset' %}">Lost password?</a></p>
   </body>
 </html>

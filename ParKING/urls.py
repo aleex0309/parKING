@@ -25,7 +25,7 @@ urlpatterns = [
     path('university/<int:id_university>/', wv.university, name='parkings'),
     path('university/<int:id_university>/parking/<int:id_parking>', wv.parking, name='parkingSpots'),
 
-    path("dashboard/", wv.dashboard, name="dashboard"),
+    path("accounts/login/dashboard/", wv.dashboard, name="dashboard"),
     path("vehicle/delete/<int:id_vehicle>",
          wv.delete_vehicle, name="vehicle_delete")
 ]
