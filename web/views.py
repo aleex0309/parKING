@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from django.http import Http404
-from web.models import University, Parking, ParkingSpot, TYPES
+from django.shortcuts import render, redirect
+from django.http import HttpRequest, Http404, HttpResponseForbidden
+from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser
 
 # Create your views here.
 
@@ -26,6 +26,69 @@ def parking(request, id_university, id_parking):
     motorbike_spots = ParkingSpot.objects.filter(parking=id_parking, type=TYPES[0][1])
     return render(request, "web/parking.html", {"parking":parking, "spots":spots, "count_cars":len(car_spots), "count_motorbikes":len(motorbike_spots)})
 
-def reserve(request):
-    
-    return render(request, "web/reserve.html", {})
+def dashboard(request: HttpRequest):
+    user = request.user
+
+    # Check if authenticated
+    if not user.is_authenticated:
+        return HttpResponseForbidden(
+            "You need to be logged in to use this feature")
+
+    reservations = Reservation.objects.filter(user=user)
+
+    vehicleUser = VehicleUser.objects.filter(user=user)
+    vehicles = [vu.vehicle for vu in vehicleUser]
+
+    return render(request, "web/dashboard.html",
+                  {"user": user, "reservations": reservations, "vehicles": vehicles})
+
+
+def delete_vehicle(request: HttpRequest, id_vehicle):
+    user = request.user
+
+    # Check if a vehicle is owned by the user
+    vehicle_user = VehicleUser.objects.get(user=user, vehicle=id_vehicle)
+    if not vehicle_user:
+        raise HttpResponseForbidden("")
+
+    vehicle_user.delete()
+    return redirect("dashboard")
+
+
+def reserve(request: HttpRequest, id_parking_spot):
+    user = request.user
+
+    # Check if authenticated
+    if not user.is_authenticated:
+        return HttpResponseForbidden(
+            "You need to be logged in to use this feature")
+
+    # Check if parking spot exists
+    try:
+        parking_spot = ParkingSpot.objects.get(id=id_parking_spot)
+    except ParkingSpot.DoesNotExist:
+        raise Http404("Parking spot does not exist")
+
+    # Check if parking spot is free
+    if not parking_spot.free:
+        raise HttpResponseForbidden("Parking spot is not free")
+
+    # Check if user has a vehicle
+    vehicle_user = VehicleUser.objects.filter(user=user)
+    if not vehicle_user:
+        return redirect("dashboard")
+
+    # Check if vehicle is allowed
+    vehicle = vehicle_user[0].vehicle
+    if vehicle.type != parking_spot.type:
+        return HttpResponseForbidden("Vehicle is not allowed")
+
+    # Create reservation
+    reservation = Reservation(vehicle=vehicle, parking_spot=parking_spot)
+    reservation.save()
+
+    # Update parking spot
+    parking_spot.free = False
+    parking_spot.save()
+
+    return redirect("dashboard")
