@@ -26,7 +26,9 @@ urlpatterns = [
     path('university/<int:id_university>/parking/<int:id_parking>', wv.parking, name='parkingSpots'),
     path("dashboard/", wv.dashboard, name="dashboard"),
     path("vehicle/delete/<int:id_vehicle>",
-         wv.delete_vehicle, name="vehicle_delete")
+         wv.delete_vehicle, name="vehicle_delete"),
+    
+    path ('ajax,/load_parking/', wv.load_parkings, name = 'ajax_load_parkings') #AJAX
 ]
 
 urlpatterns += [
