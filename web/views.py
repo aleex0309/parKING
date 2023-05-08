@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpRequest, Http404, HttpResponseForbidden
-from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, Vehicle
+from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, UserUniversity
+from .forms import ReservationForm
 
 # Create your views here.
 
@@ -58,17 +59,24 @@ def delete_vehicle(request: HttpRequest, id_vehicle):
     return redirect("dashboard")
 
 
-def reserve(request: HttpRequest):
-    user = request.user
+def reserve(request: HttpRequest, pk):
+    user = get_object_or_404(user, pk=pk)
+    form = ReservationForm(isinstance=user)
 
     # Check if authenticated
     if not user.is_authenticated:
         return HttpResponseForbidden(
             "You need to be logged in to use this feature")
-    
+        #Chech universities for user 
+    university_user = UserUniversity.objects.get(user=user, university=university)
         # Check if user has a vehicle
     vehicle_user = VehicleUser.objects.filter(user=user)
     if not vehicle_user:
         return redirect("dashboard")
 
-    return render (request, "web/reservation.html",{})
+    return render (request, "web/reserve.html",{})
+
+def load_parkings(request):
+    university_id = request.GET.get('university_id')
+    parkings = Parking.objects.filter(university_id=university_id).all()
+    return render(request, 'web/parking_dropdown_list.html', {'parking': parkings})
