@@ -76,7 +76,11 @@
             </div>
             <!-- New Button -->
             <div class="col" align="right">
-              <button type="button" class="btn btn-primary">New</button>
+                <form action={% url 'reserve' %} method="post" style="margin-block-end: 0">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">New</button>
+                </form>
+              
             </div>
           </div>
           <hr class="hr" />

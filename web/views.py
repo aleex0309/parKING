@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
-from django.http import HttpRequest, Http404, HttpResponseForbidden
-from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser
+from django.http import HttpResponse, HttpRequest, Http404, HttpResponseForbidden
+from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, Vehicle
 
 # Create your views here.
 
+
 def home(request):
     universities = University.objects.all()
-    return render(request, "web/index.html", {"universities":universities})
+    return render(request, "web/index.html", {"universities": universities})
+
 
 def university(request, id_university):
     try:
@@ -14,10 +16,11 @@ def university(request, id_university):
     except University.DoesNotExist:
         raise Http404("University does not exist")
     parkings = Parking.objects.filter(university=university)
-    return render(request, "web/university.html", {"university":university, "parkings":parkings})
+    return render(request, "web/university.html", {"university": university, "parkings": parkings})
+
 
 def parking(request, id_university, id_parking):
-    try: 
+    try:
         parking = Parking.objects.get(id=id_parking, university=id_university)
     except Parking.DoesNotExist:
         raise Http404("Parking does not exist")
@@ -68,27 +71,4 @@ def reserve(request: HttpRequest):
     if not vehicle_user:
         return redirect("dashboard")
 
-    # Check if parking spot exists
-    try:
-        parking_spot = ParkingSpot.objects.get(id=ParkingSpot.id)
-    except ParkingSpot.DoesNotExist:
-        raise Http404("Parking spot does not exist")
-
-    # Check if parking spot is free
-    if not parking_spot.free:
-        raise HttpResponseForbidden("Parking spot is not free")
-
-    # Check if vehicle is allowed
-    vehicle = vehicle_user[0].vehicle
-    if vehicle.type != parking_spot.type:
-        return HttpResponseForbidden("Vehicle is not allowed")
-
-    # Create reservation
-    reservation = Reservation(vehicle=vehicle, parking_spot=parking_spot)
-    reservation.save()
-
-    # Update parking spot
-    parking_spot.free = False
-    parking_spot.save()
-
-    return redirect("dashboard")
+    return render (request, "web/reservation.html",{})
