@@ -59,22 +59,15 @@ def delete_vehicle(request: HttpRequest, id_vehicle):
     return redirect("dashboard")
 
 
-def reserve(request: HttpRequest, pk):
-    user = get_object_or_404(user, pk=pk)
-    form = ReservationForm(isinstance=user)
+def reserve(request: HttpRequest):
+    form = ReservationForm()
+    if request.method =='POST':
+        form = ReservationForm(request.POST)
 
-    # Check if authenticated
-    if not user.is_authenticated:
-        return HttpResponseForbidden(
-            "You need to be logged in to use this feature")
-        #Chech universities for user 
-    university_user = UserUniversity.objects.get(user=user, university=university)
-        # Check if user has a vehicle
-    vehicle_user = VehicleUser.objects.filter(user=user)
-    if not vehicle_user:
-        return redirect("dashboard")
-
-    return render (request, "web/reserve.html",{})
+    if form.is_valid():
+        form.save()
+        return redirect("web/reserve.html")
+    return render (request, "dashboard",{'form': form})
 
 def load_parkings(request):
     university_id = request.GET.get('university_id')
