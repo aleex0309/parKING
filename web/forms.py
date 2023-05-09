@@ -1,11 +1,11 @@
 from django import forms
-from web.models import TYPES, ParkingSpot, Parking, University, VehicleUser, ParkingReservation
+from web.models import TYPES, ParkingSpot, University, VehicleUser, Reservation
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 
 class ReservationForm(forms.Form):
     class Meta:
-        model = ParkingReservation
+        model = Reservation
         fields = ['user', 'vehicle', 'parking_spot']
     
     def __init__(self, *args, **kwargs):
