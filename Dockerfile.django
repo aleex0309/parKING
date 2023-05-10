@@ -1,5 +1,5 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.10-slim
+FROM joyzoursky/python-chromedriver
 
 EXPOSE 8000
 
@@ -17,16 +17,9 @@ RUN pip install pipenv
 RUN pipenv install --system --deploy
 
 # Install Splinter for django
-RUN python -m pip install splinter[django] behave
+RUN python -m pip install splinter[django] behave selenium
 
-# Install Chromedriver
-RUN apt update && apt install wget unzip -y
-RUN wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip && \
-    unzip chromedriver_linux64.zip
 
-RUN mkdir -p $HOME/bin && \
-    mv chromedriver $HOME/bin && \
-    echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bash_profile
 
 COPY . /app
 
