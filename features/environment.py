@@ -1,10 +1,12 @@
 from splinter.browser import Browser
-
-chrome_options = ['--no-sandbox']
+from selenium.webdriver import ChromeOptions
 
 
 def before_all(context):
-    context.browser = Browser('chrome', headless=True, options=chrome_options)
+    options = ChromeOptions()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--headless')
+    context.browser = Browser('chrome', options=options)
 
 
 def after_all(context):
