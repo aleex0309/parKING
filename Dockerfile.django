@@ -16,6 +16,18 @@ COPY Pipfile Pipfile.lock ./
 RUN pip install pipenv
 RUN pipenv install --system --deploy
 
+# Install Splinter for django
+RUN python -m pip install splinter[django] behave
+
+# Install Chromedriver
+RUN apt update && apt install wget unzip -y
+RUN wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip && \
+    unzip chromedriver_linux64.zip
+
+RUN mkdir -p $HOME/bin && \
+    mv chromedriver $HOME/bin && \
+    echo "export PATH=$PATH:$HOME/bin" >> $HOME/.bash_profile
+
 COPY . /app
 
 # CMD ["gunicorn", "--bind", "0.0.0.0:8000", "ParKING.wsgi"]
