@@ -34,8 +34,32 @@
     <main>
       <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class=" ccol-4 d-flex justify-content-center m-1">
+          <label>Vehicle:</label>
+          {{form.vehicle}}
+        </div>
+        <div class=" ccol-4 d-flex justify-content-center mt-4">
+        <p >YYYY-MM-DD HH:MM</p>
+        </div>
+        <div class=" ccol-4 d-flex justify-content-center ">
+          <label>Date: </label>
+          {{ form.date }}
+        </div>
+        <div class=" ccol-4 d-flex justify-content-center m-3">
+          <p>University:</p>
+          {{form.university}}
+        </div>
+        <div class=" ccol-4 d-flex justify-content-center m-3">
+          <label>Parking: </label>
+          {{form.parking}}
+        </div>
+        <div class=" ccol-4 d-flex justify-content-center m-3">
+        <label>Parking spot:</label>
+        {{form.parking_spot}}
+        </div>
+        <div class=" ccol-4 d-flex justify-content-center m-5">
         <button type="submit">Crear reserva</button>
+        </div>
       </form>
       <script src="{% static 'js/reservation_form.js' %}"></script>
     </main>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, Http404, HttpResponseForbidden, JsonResponse
-from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser
+from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, Vehicle
 from .forms import ReservationForm
 from django.contrib.auth.decorators import login_required
 
@@ -94,4 +94,16 @@ def get_parking_spots(request):
         return JsonResponse(list(parking_spots), safe=False)
     else:
         return JsonResponse({'error': 'Parking ID or vehicle type not provided.'})
+    
+def get_vehicle_type(request):
+    vehicle_id = request.GET.get('vehicle_id')
+    if vehicle_id:
+        try:
+            vehicle = Vehicle.objects.get(id=vehicle_id)
+            vehicle_type = vehicle.type
+            return JsonResponse({'vehicle_type': vehicle_type})
+        except Vehicle.DoesNotExist:
+            return JsonResponse({'error': 'Vehicle not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Vehicle ID not provided'}, status=400)
 

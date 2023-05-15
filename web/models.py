@@ -36,7 +36,7 @@ class VehicleUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{str(self.vehicle)+"@"+str(self.user)}'
+        return f'{str(self.vehicle)}'
 
 
 class Parking(models.Model):
@@ -59,7 +59,7 @@ class ParkingSpot(models.Model):
 class Reservation(models.Model):
     vehicle = models.ForeignKey(VehicleUser, on_delete=models.CASCADE)
     date = models.DateTimeField()
-    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     parking_spot = models.ForeignKey(ParkingSpot, on_delete=models.CASCADE)
 
