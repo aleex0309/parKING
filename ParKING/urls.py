@@ -26,6 +26,7 @@ urlpatterns = [
     path('reserve/', wv.reserve, name='reserve'),
     path('api/parkings/', wv.get_parkings_by_university, name='api_parkings'),
     path('api/parking-spots/', wv.get_parking_spots, name='api_parking_spots'),
+    path('api/vehicle-type/', wv.get_vehicle_type, name='api_vehicle_type'),
     path('university/<int:id_university>/', wv.university, name='parkings'),
     path('university/<int:id_university>/parking/<int:id_parking>', wv.parking, name='parkingSpots'),
     path("dashboard/", wv.dashboard, name="dashboard"),
