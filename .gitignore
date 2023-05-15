@@ -94,3 +94,6 @@ local_settings.py
 .env
 # db.sqlite3
 0001_initial.py
+
+#Emails from password_reset#
+sent_emails/
