@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, Http404, HttpResponseForbidden, JsonResponse
-from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, UserUniversity
+from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser
 from .forms import ReservationForm
 from django.contrib.auth.decorators import login_required
 
@@ -59,10 +59,6 @@ def delete_vehicle(request: HttpRequest, id_vehicle):
 
     vehicle_user.delete()
     return redirect("dashboard")
-
-
-from django.shortcuts import render, redirect
-from .forms import ReservationForm
 
 @login_required
 def reserve(request):
