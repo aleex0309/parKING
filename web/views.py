@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpRequest, Http404, HttpResponseForbidden
+from django.http import HttpRequest, Http404, HttpResponseForbidden, JsonResponse
 from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, UserUniversity
 from .forms import ReservationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -30,6 +31,7 @@ def parking(request, id_university, id_parking):
     motorbike_spots = ParkingSpot.objects.filter(parking=id_parking, type=TYPES[0][1])
     return render(request, "web/parking.html", {"parking":parking, "spots":spots, "count_cars":len(car_spots), "count_motorbikes":len(motorbike_spots)})
 
+@login_required
 def dashboard(request: HttpRequest):
     user = request.user
 
@@ -46,7 +48,7 @@ def dashboard(request: HttpRequest):
     return render(request, "web/dashboard.html",
                   {"user": user, "reservations": reservations, "vehicles": vehicles})
 
-
+@login_required
 def delete_vehicle(request: HttpRequest, id_vehicle):
     user = request.user
 
@@ -59,17 +61,41 @@ def delete_vehicle(request: HttpRequest, id_vehicle):
     return redirect("dashboard")
 
 
-def reserve(request: HttpRequest):
-    form = ReservationForm()
-    if request.method =='POST':
+from django.shortcuts import render, redirect
+from .forms import ReservationForm
+
+@login_required
+def reserve(request):
+    if request.method == 'POST':
         form = ReservationForm(request.POST)
+        if form.is_valid():
+            reservation = form.save(commit=False)
+            reservation.user = request.user
+            reservation.save()
+            return redirect('dashboard')
+    else:
+        form = ReservationForm()
+    
+    return render(request, 'web/reserve.html', {'form': form})
 
-    if form.is_valid():
-        form.save()
-        return redirect("web/reserve.html")
-    return render (request, "dashboard",{'form': form})
 
-def load_parkings(request):
+    #Parkings for each university
+def get_parkings_by_university(request):
     university_id = request.GET.get('university_id')
-    parkings = Parking.objects.filter(university_id=university_id).all()
-    return render(request, 'web/parking_dropdown_list.html', {'parking': parkings})
+    
+    if university_id:
+        parkings = Parking.objects.filter(university_id=university_id).values('id', 'description')
+        return JsonResponse(list(parkings), safe=False)
+    else:
+        return JsonResponse({'error': 'University ID not provided.'})
+
+def get_parking_spots(request):
+    parking_id = request.GET.get('parking_id')
+    vehicle_type = request.GET.get('vehicle_type')
+
+    if parking_id and vehicle_type:
+        parking_spots = ParkingSpot.objects.filter(parking_id=parking_id, type=vehicle_type).values('id')
+        return JsonResponse(list(parking_spots), safe=False)
+    else:
+        return JsonResponse({'error': 'Parking ID or vehicle type not provided.'})
+
