@@ -2,48 +2,45 @@ from behave import *
 
 use_step_matcher("parse")
 
-@given(u'Exists a vehicle registered by "user1"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given Exists a vehicle registered by "user1"')
-
-
-@when(u'I edit the vehicle with type "Car"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When I edit the vehicle with type "Car"')
-
-
-@then(u'I\'m viewing the details page for vehicle by "user1"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I\'m viewing the details page for vehicle by "user1"')
-
-
-@then(u'There are 1 vehicle')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then There are 1 vehicle')
-
-
-@when(u'I edit the vehicle with plate number "12345ABC"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When I edit the vehicle with plate number "12345ABC"')
-
-@given(u'Exists vehicle registered by "user"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given Exists vehicle registered by "user"')
-
-@given(u'Exists parking spot')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given Exists parking spot')
+@given(u'Exists vehicle registered by "{username}"')
+def step_impl(context, username):
+    from django.contrib.auth.models import User
+    user = User.objects.get(username=username)
+    from web.models import Vehicle
+    for row in context.table:
+        vehicle = Vehicle(user=user)
+        for heading in row.headings:
+            setattr(vehicle, heading, row[heading])
+        vehicle.save()
 
 @when(u'I register vehicle')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: When I register vehicle')
+    for row in context.table:
+        context.browser.visit(context.get_url('web:vehicle_create'))
+        if context.browser.url == context.get_url('web:vehicle_create'):
+            form = context.browser.find_by_tag('form').first
+            for heading in row.headings:
+                context.browser.fill(heading, row[heading])
+            form.find_by_tag('button').first.click()
 
+@then(u'There are {count:n} vehicle')
+def step_impl(context, count):
+    from web.models import Vehicle
+    assert Vehicle.objects.count() == count
 
-@then(u'There are 1 vehicles')
+@when(u'I edit the vehicle with plate number "12345ABC"')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then There are 1 vehicles')
+    from web.models import Vehicle
+    vehicle = Vehicle.objects.get(plate_number='12345ABC')
+    context.browser.visit(context.get_url('web:vehicle_edit', vehicle.pk))
+    if context.browser.url == context.get_url('web:vehicle_edit', vehicle.pk)\
+            and context.browser.find_by_tag('form'):
+        form = context.browser.find_by_tag('form').first
+        for heading in context.table.headings:
+            context.browser.fill(heading, context.table[heading])
+        form.find_by_tag('button').first.click()
 
 
-@then(u'There are 0 vehicles')
+@then(u'I\'m viewing the details page for vehicle by "user"')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then There are 0 vehicles')
+    raise NotImplementedError(u'STEP: Then I\'m viewing the details page for vehicle by "user"')
