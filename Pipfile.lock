@@ -169,8 +169,6 @@
             ],
             "index": "pypi",
             "version": "==0.4.4"
-            "markers": "python_version >= '3.5'",
-            "version": "==0.4.4"
         },
         "urllib3": {
             "hashes": [
