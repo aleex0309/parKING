@@ -14,7 +14,7 @@ Feature: Register Vehicle
         Then I'm viewing the details page for vehicle by "user"
             | type  | plate number  |
             | Car   | 12345ABC      |
-        And There are 1 vehicles
+        And There are 1 vehicle
     
     Scenario: Try to register vehicle but not logged In
         Given I'm not logged In
@@ -22,4 +22,4 @@ Feature: Register Vehicle
             | type  | plate number  |
             | Car   | 12345ABC      |
         Then I'm redirected to the login form
-        And There are 0 vehicles
+        And There are 0 vehicle
