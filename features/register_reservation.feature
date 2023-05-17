@@ -26,4 +26,4 @@ Feature: Register reservation
             | vehicle   | date                  |
             | 12345ABC  | 01/01/2000 - 12:00h   |
         Then I'm redirected to the login form
-        And There are 0 reservations
+        And There are 0 reservation

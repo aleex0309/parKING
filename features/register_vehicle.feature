@@ -6,7 +6,7 @@ Feature: Register Vehicle
     Background: There is a registered user
         Given Exists a user "user" with password "password"
     
-    Scenario: Register just vehicle type and plate number
+    Scenario: Register vehicle type and plate number
         Given I login as user "user" with password "password"
         When I register vehicle
             | type  | plate number  |
