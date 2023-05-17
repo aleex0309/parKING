@@ -15,8 +15,8 @@ Feature: Register reservation
     Scenario: Register reservation with complete information
         Given I login as "user" with password "password"
         When I register reservation at parking spot "UdL"
-            | vehicle   | date                  |
-            | AudiA3    | 01/01/2000 - 12:00h   |
+            | vehicle     | date                  |
+            | 12345ABC    | 01/01/2000 - 12:00h   |
         Then I'm viewing the user dashboard with the recently created reservation listed
         And There are 1 reservation
 
@@ -24,6 +24,6 @@ Feature: Register reservation
         Given I'm not logged in
         When I register reservation at parking spot "UdL"
             | vehicle   | date                  |
-            | AudiA3    | 01/01/2000 - 12:00h   |
+            | 12345ABC  | 01/01/2000 - 12:00h   |
         Then I'm redirected to the login form
         And There are 0 reservations

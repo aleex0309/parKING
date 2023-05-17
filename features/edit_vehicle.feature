@@ -12,9 +12,9 @@ Feature: Edit vehicle
 
     Scenario: Edit type of an owned vehicle
         Given I login as user "user1" with password "password"
-        When I edit the vehicle with type "Car"
-            | plate number  |
-            | 12345ABC      |
+        When I edit the vehicle with plate number "12345ABC"
+            | type  |
+            | Car   |
         Then I'm viewing the details page for vehicle by "user1"
             | type      | plate number  |
             | Motorbike | 12345ABC      |
