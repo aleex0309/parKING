@@ -17,14 +17,24 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 import web.views as wv
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', wv.home, name='home'), 
+    path('reserve/', wv.reserve, name='reserve'),
+    path('api/parkings/', wv.get_parkings_by_university, name='api_parkings'),
+    path('api/parking-spots/', wv.get_parking_spots, name='api_parking_spots'),
+    path('api/vehicle-type/', wv.get_vehicle_type, name='api_vehicle_type'),
     path('university/<int:id_university>/', wv.university, name='parkings'),
-    path('university/<int:id_university>/parking/<int:id_parking>', wv.parking, name='parkingSpots')
-]
+    path('university/<int:id_university>/parking/<int:id_parking>', wv.parking, name='parkingSpots'),
+    path("dashboard/", wv.dashboard, name="dashboard"),
+    path("vehicle/delete/<int:id_vehicle>",
+         wv.delete_vehicle, name="vehicle_delete"),
+         
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += [
-   path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]

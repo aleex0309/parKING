@@ -1,4 +1,33 @@
 {% block content %}
-  <p>Logged out!</p>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>
+  body {
+    font-family: Arial;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 48px;
+  }
+</style>
+<header>
+  <h1>ParKING</h1>
+</header>
+<div class ="ccol-4 d-flex justify-content-center mt-5">
+  <p>Logged out! </p>
+</div>
+<div class ="ccol-4 d-flex justify-content-center ">
   <a href="{% url 'login'%}">Click here to login again.</a>
+</div>
 {% endblock %}
