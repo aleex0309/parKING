@@ -19,7 +19,7 @@ class UserUniversity(models.Model):
         return f'{str(self.user)+"@"+str(self.university)}'
 
 
-TYPES = [('motorbike', 'motorbike'), ('car', 'car'), ("van", 'van')]
+TYPES = [('motorbike', 'motorbike'), ('car', 'car'), ('van', 'van')]
 
 
 class Vehicle(models.Model):
@@ -36,7 +36,7 @@ class VehicleUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{str(self.vehicle)+"@"+str(self.user)}'
+        return f'{str(self.vehicle)}'
 
 
 class Parking(models.Model):
@@ -57,12 +57,11 @@ class ParkingSpot(models.Model):
 
 
 class Reservation(models.Model):
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(VehicleUser, on_delete=models.CASCADE)
     date = models.DateTimeField()
-    price = models.FloatField()
-
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    parking_spot = models.ForeignKey(ParkingSpot, on_delete=models.DO_NOTHING)
+    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    parking_spot = models.ForeignKey(ParkingSpot, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.id}'
