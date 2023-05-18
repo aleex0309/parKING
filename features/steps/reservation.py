@@ -17,8 +17,8 @@ def step_impl(context, username):
 @when(u'I register reservation at parking spot "UdL"')
 def step_impl(context):
     for row in context.table:
-        context.browser.visit(context.get_url('web:reservation_create'))
-        if context.browser.url == context.get_url('web:reservation_create'):
+        context.browser.visit(context.get_url('web:reserve'))
+        if context.browser.url == context.get_url('web:reserve'):
             form = context.browser.find_by_tag('form').first
             for heading in row.headings:
                 context.browser.fill(heading, row[heading])
