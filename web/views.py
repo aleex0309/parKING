@@ -81,9 +81,14 @@ def new_car(request):
         form = NewCarForm(request.POST)
         if form.is_valid():
             new_car = form.save(commit=False)
-            new_car.user = request.user
-            new_car.save()
+            if not Vehicle.objects.filter(plate = new_car.plate):
+                new_car.save()
+            else:
+                new_car = Vehicle.objects.get(plate = new_car.plate)
+            if not VehicleUser.objects.filter(user = request.user, vehicle = new_car):
+                VehicleUser.objects.create(user = request.user, vehicle = new_car)
             return redirect('dashboard')
+
     else:
         form = NewCarForm()
     
