@@ -27,8 +27,8 @@ Grade division:
 Implementation
 -----------------
 - [x] Allow registered users to create new instances of model entities (Cars and Reservations)
-- [x] Allow users to modify entity instances
-- [x] Allow users to delete instances of model entities (Reservations can add more time)
+- [x] Allow users to modify entity instances (Reservations can add more time)
+- [x] Allow users to delete instances of model entities
 - [x] Incorporate data from an external API in the operation of the application (DGT API used for the ambiental type in vehicles)
       
 
