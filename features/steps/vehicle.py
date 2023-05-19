@@ -1,4 +1,5 @@
 from behave import *
+from django.db.models import Q
 
 use_step_matcher("parse")
 
@@ -43,4 +44,8 @@ def step_impl(context):
 
 @then(u'I\'m viewing the details page for vehicle by "user"')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I\'m viewing the details page for vehicle by "user"')
+    q_list = [Q((attribute, context.table.rows[0][attribute])) for attribute in context.table.headings]
+    from django.contrib.auth.models import User
+    q_list.append(Q(user=User.objects.get(username='user')))
+    from web.models import Reservation
+    assert Reservation.objects.filter(*q_list).count() == 1
