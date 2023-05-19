@@ -1,0 +1,289 @@
+[
+  {
+    "model": "web.university",
+    "pk": 1,
+    "fields": {
+      "name": "Universitat de Lleida"
+    }
+  },
+  {
+    "model": "web.Parking",
+    "pk": 1,
+    "fields": {
+      "university": 1,
+      "description": "Exterior"
+    }
+  },
+  {
+    "model": "web.Parking",
+    "pk": 2,
+    "fields": {
+      "university": 1,
+      "description": "Soterrat"
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 2,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  },
+  {
+    "model": "web.ParkingSpot",
+    "fields": {
+      "parking": 1,
+      "type": "car",
+      "free": true
+    }
+  }
+]

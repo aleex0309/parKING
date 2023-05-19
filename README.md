@@ -24,3 +24,9 @@ Usage
 docker-compose up -d --build  
 ```
 2. Go to [LocalHost](http://0.0.0.0/)
+   
+3. To load example data run
+  ```
+  python manage.py loaddata initial_data.json 
+  ```
+  
