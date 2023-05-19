@@ -3,6 +3,7 @@ from django.http import HttpRequest, Http404, HttpResponseForbidden, JsonRespons
 from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, Vehicle
 from .forms import ReservationForm, NewCarForm
 from django.contrib.auth.decorators import login_required
+import ambiental_type
 
 # Create your views here.
 
@@ -62,7 +63,6 @@ def delete_vehicle(request: HttpRequest, id_vehicle):
 
 @login_required
 def reserve(request):
-    print("TEtas")
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
@@ -88,6 +88,11 @@ def new_car(request):
         form = NewCarForm()
     
     return render(request, 'web/new_car.html', {'form': form})
+
+def get_vehicle_label(request):
+    plate = request.GET.get('plate')
+    label = ambiental_type.main(plate)
+    return JsonResponse({'label' : label})
 
 
     #Parkings for each university

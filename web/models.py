@@ -19,7 +19,7 @@ class UserUniversity(models.Model):
         return f'{str(self.user)+"@"+str(self.university)}'
 
 
-TYPES = [('motorbike', 'motorbike'), ('car', 'car'), ('van', 'van')]
+TYPES = [('Motorbike', 'Motorbike'), ('Car', 'Car'), ('Van', 'Van')]
 
 
 class Vehicle(models.Model):

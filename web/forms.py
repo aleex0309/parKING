@@ -30,13 +30,15 @@ class ReservationForm(forms.ModelForm):
         js = ('reservation_form.js',)
 
 class NewCarForm(forms.ModelForm):
-    university = forms.ModelChoiceField(queryset=University.objects.all())
-    parking = forms.ModelChoiceField(queryset=Parking.objects.none())
-    parking_spot = forms.ModelChoiceField(queryset=ParkingSpot.objects.none())
+    TYPES = [('Motorbike', 'Motorbike'), ('Car', 'Car'), ('Van', 'Van')]
+
+    plate = forms.CharField(max_length=7)
+    type = forms.ChoiceField(choices=TYPES)
+    emissions = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = Vehicle
-        fields = ['plate', 'type', 'emissions', 'user']
+        fields = ['plate', 'type', 'emissions']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

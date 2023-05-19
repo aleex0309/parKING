@@ -33,6 +33,7 @@ urlpatterns = [
     path("dashboard/", wv.dashboard, name="dashboard"),
     path("vehicle/delete/<int:id_vehicle>",
          wv.delete_vehicle, name="vehicle_delete"),
+    path('api/vehicle-label/', wv.get_vehicle_label, name='api_vehicle_label'),
          
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
