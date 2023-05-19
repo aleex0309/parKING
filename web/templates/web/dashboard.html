@@ -13,7 +13,7 @@
   <div class="container-fluid mt-4 bg-dark" style="min-height: 90vh">
     <div class="row p-3">
       <div class="col">
-        <h2>{{ user.username }}</h2>
+        <h2>{{ user.username}}</h2>
       </div>
       <!-- Logout Button -->
       <div class="col" align="right">
@@ -87,9 +87,10 @@
           <!-- Start of reservation rows -->
           <div class="col">
             {% for activ,reservation in active %}
-            <div class="row mb-3 align-items-center border {% if activ %}border-success{% else %}border-white{% endif %} rounded m-1 p-3">
+            <div class="row mb-3 align-items-center border {% if activ %}border-success{% else %}border-white{% endif %} rounded m-1 p-4">
               <div class="col">
-                <h2 class="d-inline">{{reservation.date|date:"d-m-Y"}}</h2>
+                <h2 class="d-inline">Inici: {{reservation.date|date:"d-m-Y h:m"}}</h2>
+                  <h2 class="d-inline">Fi: {{reservation.date_fi|date:"d-m-Y h:m"}}</h2>
                 <h5 class="">{{reservation.vehicle.plate}}</h5>
               </div>
               <div class="col align-items-center">
@@ -98,9 +99,14 @@
                 </h4>
               </div>
               <div class="col-2" align="right">
+                <form action="{% url 'add_time' reservation.id %}" method="POST" style="margin-block-end: 0">
+                  {% csrf_token %}
+                  <button type="submit" class="d-inline btn btn-danger bi bi-trash-fill"></button>
+                </form>
                 <div class="border-bottom border-2 rounded-circle text-center" style="width: 40px; height:40px;">
                   <h3 class="m-1">{{reservation.parking_spot}}</h3>
                 </div>
+
               </div>
             </div>
             {% endfor %}

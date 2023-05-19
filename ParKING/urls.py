@@ -32,6 +32,8 @@ urlpatterns = [
     path("dashboard/", wv.dashboard, name="dashboard"),
     path("vehicle/delete/<int:id_vehicle>",
          wv.delete_vehicle, name="vehicle_delete"),
+    path("reserve/add_time/<int:id_reserve>",
+         wv.add_time, name="add_time"),
          
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

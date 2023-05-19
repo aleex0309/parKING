@@ -4,6 +4,7 @@ from web.models import University, Parking, ParkingSpot, TYPES, Reservation, Veh
 from .forms import ReservationForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from datetime import datetime, timedelta
 # Create your views here.
 
 
@@ -45,7 +46,7 @@ def dashboard(request: HttpRequest):
     active_list = list()
 
     for reservation in reservations:
-        active_list.append(reservation.date < timezone.now() < reservation.date_fi)
+        active_list.append(reservation.date < timezone.now() and timezone.now() < reservation.date_fi)
 
     active = zip(active_list, reservations)
 
@@ -54,7 +55,7 @@ def dashboard(request: HttpRequest):
 
 
     return render(request, "web/dashboard.html",
-                  {"user": user, "reservations": reservations, "vehicles": vehicles, "active": active})
+                  {"user": user, "reservations": reservations, "vehicles": vehicles, "active": active, "time": timezone.now()})
 
 @login_required
 def delete_vehicle(request: HttpRequest, id_vehicle):
@@ -66,6 +67,18 @@ def delete_vehicle(request: HttpRequest, id_vehicle):
         raise HttpResponseForbidden("")
 
     vehicle_user.delete()
+    return redirect("dashboard")
+
+@login_required
+def add_time(request: HttpRequest, id_reserve):
+    user = request.user
+
+    # Check if a vehicle is owned by the user
+    active_reserve = Reservation.objects.get(user=user, id=id_reserve)
+    if not active_reserve:
+        raise HttpResponseForbidden("")
+
+    active_reserve.date_fi = active_reserve.date_fi + timedelta(minutes=15)
     return redirect("dashboard")
 
 @login_required
