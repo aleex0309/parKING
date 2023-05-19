@@ -28,3 +28,21 @@ class ReservationForm(forms.ModelForm):
 
     class Media:
         js = ('reservation_form.js',)
+
+class NewCarForm(forms.ModelForm):
+    TYPES = [('Motorbike', 'Motorbike'), ('Car', 'Car'), ('Van', 'Van')]
+
+    plate = forms.CharField(max_length=7)
+    type = forms.ChoiceField(choices=TYPES)
+    emissions = forms.CharField(widget=forms.HiddenInput())
+
+    class Meta:
+        model = Vehicle
+        fields = ['plate', 'type', 'emissions']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+
+    class Media:
+        js = ('new_car_form.js',)

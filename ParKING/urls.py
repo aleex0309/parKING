@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', wv.home, name='home'), 
     path('reserve/', wv.reserve, name='reserve'),
+    path('new_car/', wv.new_car, name='new_car'),
     path('api/parkings/', wv.get_parkings_by_university, name='api_parkings'),
     path('api/parking-spots/', wv.get_parking_spots, name='api_parking_spots'),
     path('api/vehicle-type/', wv.get_vehicle_type, name='api_vehicle_type'),
@@ -32,6 +33,7 @@ urlpatterns = [
     path("dashboard/", wv.dashboard, name="dashboard"),
     path("vehicle/delete/<int:id_vehicle>",
          wv.delete_vehicle, name="vehicle_delete"),
+    path('api/vehicle-label/', wv.get_vehicle_label, name='api_vehicle_label'),
     path("reserve/add_time/<int:id_reserve>",
          wv.add_time, name="add_time"),
          

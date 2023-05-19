@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 psycopg2-binary = "*"
+bs4 = "*"
+requests = "*"
 behave = "*"
 behave-django = "*"
 splinter = "*"

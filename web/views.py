@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, Http404, HttpResponseForbidden, JsonResponse
 from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, Vehicle
-from .forms import ReservationForm
+from .forms import ReservationForm, NewCarForm
 from django.contrib.auth.decorators import login_required
+import ambiental_type
 from django.utils import timezone
 from datetime import datetime, timedelta
 # Create your views here.
@@ -101,6 +102,29 @@ def reserve(request):
 
     return render(request, 'web/reserve.html', {'form': form})
 
+@login_required
+def new_car(request):
+    if request.method == 'POST':
+        form = NewCarForm(request.POST)
+        if form.is_valid():
+            new_car = form.save(commit=False)
+            if not Vehicle.objects.filter(plate = new_car.plate):
+                new_car.save()
+            else:
+                new_car = Vehicle.objects.get(plate = new_car.plate)
+            if not VehicleUser.objects.filter(user = request.user, vehicle = new_car):
+                VehicleUser.objects.create(user = request.user, vehicle = new_car)
+            return redirect('dashboard')
+
+    else:
+        form = NewCarForm()
+    
+    return render(request, 'web/new_car.html', {'form': form})
+
+def get_vehicle_label(request):
+    plate = request.GET.get('plate')
+    label = ambiental_type.main(plate)
+    return JsonResponse({'label' : label})
     # Parkings for each university
 
 

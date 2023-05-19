@@ -35,7 +35,10 @@
             </div>
             <!-- ADD Button -->
             <div class="col" align="right">
-              <button type="button" class="btn btn-success">Add</button>
+              <form action={% url "new_car" %} method="post">
+                {% csrf_token %}
+                <button class="btn btn-success" type="submit">Add</button>
+              </form>
             </div>
           </div>
           <hr class="hr" />
