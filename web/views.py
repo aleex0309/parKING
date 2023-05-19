@@ -62,6 +62,7 @@ def delete_vehicle(request: HttpRequest, id_vehicle):
 
 @login_required
 def reserve(request):
+    print("TEtas")
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():

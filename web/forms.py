@@ -28,3 +28,19 @@ class ReservationForm(forms.ModelForm):
 
     class Media:
         js = ('reservation_form.js',)
+
+class NewCarForm(forms.ModelForm):
+    university = forms.ModelChoiceField(queryset=University.objects.all())
+    parking = forms.ModelChoiceField(queryset=Parking.objects.none())
+    parking_spot = forms.ModelChoiceField(queryset=ParkingSpot.objects.none())
+
+    class Meta:
+        model = Vehicle
+        fields = ['plate', 'type', 'emissions', 'user']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+
+    class Media:
+        js = ('new_car_form.js',)
