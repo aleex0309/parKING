@@ -86,8 +86,8 @@
           <hr class="hr" />
           <!-- Start of reservation rows -->
           <div class="col">
-            {% for reservation in reservations %}
-            <div class="row mb-3 align-items-center border border-white rounded m-1">
+            {% for activ,reservation in active %}
+            <div class="row mb-3 align-items-center border {% if activ %}border-success{% else %}border-white{% endif %} rounded m-1">
               <div class="col">
                 <h2 class="d-inline">{{reservation.date|date:"d-m-Y"}}</h2>
                 <h5 class="">{{reservation.vehicle.plate}}</h5>

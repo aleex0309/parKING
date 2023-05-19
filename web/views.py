@@ -3,7 +3,7 @@ from django.http import HttpRequest, Http404, HttpResponseForbidden, JsonRespons
 from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, Vehicle
 from .forms import ReservationForm
 from django.contrib.auth.decorators import login_required
-
+from django.utils import timezone
 # Create your views here.
 
 
@@ -42,11 +42,19 @@ def dashboard(request: HttpRequest):
 
     reservations = Reservation.objects.filter(user=user)
 
+    active_list = list()
+
+    for reservation in reservations:
+        active_list.append(reservation.date < timezone.now() < reservation.date_fi)
+
+    active = zip(active_list, reservations)
+
     vehicleUser = VehicleUser.objects.filter(user=user)
     vehicles = [vu.vehicle for vu in vehicleUser]
 
+
     return render(request, "web/dashboard.html",
-                  {"user": user, "reservations": reservations, "vehicles": vehicles})
+                  {"user": user, "reservations": reservations, "vehicles": vehicles, "active": active})
 
 @login_required
 def delete_vehicle(request: HttpRequest, id_vehicle):
