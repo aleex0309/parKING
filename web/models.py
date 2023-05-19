@@ -59,6 +59,7 @@ class ParkingSpot(models.Model):
 class Reservation(models.Model):
     vehicle = models.ForeignKey(VehicleUser, on_delete=models.CASCADE)
     date = models.DateTimeField()
+    date_fi = models.DateTimeField()
     price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, default=0.0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     parking_spot = models.ForeignKey(ParkingSpot, on_delete=models.CASCADE)

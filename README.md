@@ -5,7 +5,32 @@
   Web Project assignment 2022/2023 <BR>
 Universtat de Lleida
 </p>
-
+      
+Deliverable 2
+-----------------------
+19/05/2023
+      
+Grade division:
+      
+      
+    Alexandru Cristian Stoia - 22%
+      
+    Pere Muñoz Figuerol - 22%
+      
+    Rafel Salgueiro Santacreu - 22%
+      
+    Marc Gaspà Joval - 22%
+      
+    Andreu Pérez Torra - 12%
+      
+      
+Implementation
+-----------------
+- [x] Allow registered users to create new instances of model entities (Cars and Reservations)
+- [x] Allow users to modify entity instances (Reservations can add more time)
+- [x] Allow users to delete instances of model entities
+- [x] Incorporate data from an external API in the operation of the application (DGT API used for the ambiental type in vehicles)
+      
 
 Developers
 -------------
