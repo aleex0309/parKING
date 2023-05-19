@@ -23,3 +23,11 @@ Feature: Register Vehicle
             | Car   | 12345ABC      |
         Then I'm redirected to the login form
         And There are 0 vehicle
+    
+    Scenario: I delete the vehicle
+        Given I login as user "user" with password "password"
+        And I register vehicle
+        When I delete a vehicle
+            | type  | plate number  |
+            | Car   | 12345ABC      |
+        Then There are 0 vehicle

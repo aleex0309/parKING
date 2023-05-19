@@ -41,11 +41,14 @@ def step_impl(context):
             context.browser.fill(heading, context.table[heading])
         form.find_by_tag('button').first.click()
 
+@when(u'I delete a vehicle')
+def step_impl(context):
+    context.browser.visit(context.get_url('web:vehicle/delete/1'))
 
 @then(u'I\'m viewing the details page for vehicle by "user"')
 def step_impl(context):
     q_list = [Q((attribute, context.table.rows[0][attribute])) for attribute in context.table.headings]
     from django.contrib.auth.models import User
     q_list.append(Q(user=User.objects.get(username='user')))
-    from web.models import Reservation
-    assert Reservation.objects.filter(*q_list).count() == 1
+    from web.models import Vehicle
+    assert Vehicle.objects.filter(*q_list).count() == 1

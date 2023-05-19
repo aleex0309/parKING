@@ -44,7 +44,11 @@ def step_impl(context):
 
 @then(u'I\'m viewing the user dashboard with the reservation date updated')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I\'m viewing the user dashboard with the reservation date updated')
+    q_list = [Q((attribute, context.table.rows[0][attribute])) for attribute in context.table.headings]
+    from django.contrib.auth.models import User
+    q_list.append(Q(user=User.objects.get(username='user')))
+    from web.models import Reservation
+    assert Reservation.objects.filter(*q_list).count() == 1
 
 
 @when(u'I cancel the reservation for vehicle "12345ABC"')
@@ -54,7 +58,11 @@ def step_impl(context):
 
 @then(u'I\'m viewing the user dashboard with the reservation cancelled')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I\'m viewing the user dashboard with the reservation cancelled')
+    q_list = [Q((attribute, context.table.rows[0][attribute])) for attribute in context.table.headings]
+    from django.contrib.auth.models import User
+    q_list.append(Q(user=User.objects.get(username='user')))
+    from web.models import Reservation
+    assert Reservation.objects.filter(*q_list).count() == 0
 
 @given(u'Exists parking spot')
 def step_impl(context):
