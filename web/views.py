@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, Http404, HttpResponseForbidden, JsonResponse
 from web.models import University, Parking, ParkingSpot, TYPES, Reservation, VehicleUser, Vehicle
-from .forms import ReservationForm
+from .forms import ReservationForm, NewCarForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -78,14 +78,14 @@ def reserve(request):
 @login_required
 def new_car(request):
     if request.method == 'POST':
-        form = ReservationForm(request.POST)
+        form = NewCarForm(request.POST)
         if form.is_valid():
-            reservation = form.save(commit=False)
-            reservation.user = request.user
-            reservation.save()
+            new_car = form.save(commit=False)
+            new_car.user = request.user
+            new_car.save()
             return redirect('dashboard')
     else:
-        form = ReservationForm()
+        form = NewCarForm()
     
     return render(request, 'web/new_car.html', {'form': form})
 
