@@ -28,9 +28,12 @@ def parking(request, id_university, id_parking):
     except Parking.DoesNotExist:
         raise Http404("Parking does not exist")
     spots = ParkingSpot.objects.filter(parking=id_parking)
-    car_spots = ParkingSpot.objects.filter(parking=id_parking, type=TYPES[1][1])
-    motorbike_spots = ParkingSpot.objects.filter(parking=id_parking, type=TYPES[0][1])
-    return render(request, "web/parking.html", {"parking":parking, "spots":spots, "count_cars":len(car_spots), "count_motorbikes":len(motorbike_spots)})
+    car_spots = ParkingSpot.objects.filter(
+        parking=id_parking, type=TYPES[1][1])
+    motorbike_spots = ParkingSpot.objects.filter(
+        parking=id_parking, type=TYPES[0][1])
+    return render(request, "web/parking.html", {"parking": parking, "spots": spots, "count_cars": len(car_spots), "count_motorbikes": len(motorbike_spots)})
+
 
 @login_required
 def dashboard(request: HttpRequest):
@@ -46,16 +49,17 @@ def dashboard(request: HttpRequest):
     active_list = list()
 
     for reservation in reservations:
-        active_list.append(reservation.date < timezone.now() and timezone.now() < reservation.date_fi)
+        active_list.append(reservation.date < timezone.now()
+                           and timezone.now() < reservation.date_fi)
 
     active = zip(active_list, reservations)
 
     vehicleUser = VehicleUser.objects.filter(user=user)
     vehicles = [vu.vehicle for vu in vehicleUser]
 
-
     return render(request, "web/dashboard.html",
                   {"user": user, "reservations": reservations, "vehicles": vehicles, "active": active, "time": timezone.now()})
+
 
 @login_required
 def delete_vehicle(request: HttpRequest, id_vehicle):
@@ -69,17 +73,19 @@ def delete_vehicle(request: HttpRequest, id_vehicle):
     vehicle_user.delete()
     return redirect("dashboard")
 
+
 @login_required
 def add_time(request: HttpRequest, id_reserve):
     user = request.user
 
-    # Check if a vehicle is owned by the user
     active_reserve = Reservation.objects.get(user=user, id=id_reserve)
     if not active_reserve:
         raise HttpResponseForbidden("")
 
     active_reserve.date_fi = active_reserve.date_fi + timedelta(minutes=15)
+    active_reserve.save()
     return redirect("dashboard")
+
 
 @login_required
 def reserve(request):
@@ -92,30 +98,35 @@ def reserve(request):
             return redirect('dashboard')
     else:
         form = ReservationForm()
-    
+
     return render(request, 'web/reserve.html', {'form': form})
 
+    # Parkings for each university
 
-    #Parkings for each university
+
 def get_parkings_by_university(request):
     university_id = request.GET.get('university_id')
-    
+
     if university_id:
-        parkings = Parking.objects.filter(university_id=university_id).values('id', 'description')
+        parkings = Parking.objects.filter(
+            university_id=university_id).values('id', 'description')
         return JsonResponse(list(parkings), safe=False)
     else:
         return JsonResponse({'error': 'University ID not provided.'})
+
 
 def get_parking_spots(request):
     parking_id = request.GET.get('parking_id')
     vehicle_type = request.GET.get('vehicle_type')
 
     if parking_id and vehicle_type:
-        parking_spots = ParkingSpot.objects.filter(parking_id=parking_id, type=vehicle_type).values('id')
+        parking_spots = ParkingSpot.objects.filter(
+            parking_id=parking_id, type=vehicle_type).values('id')
         return JsonResponse(list(parking_spots), safe=False)
     else:
         return JsonResponse({'error': 'Parking ID or vehicle type not provided.'})
-    
+
+
 def get_vehicle_type(request):
     vehicle_id = request.GET.get('vehicle_id')
     if vehicle_id:
@@ -127,4 +138,3 @@ def get_vehicle_type(request):
             return JsonResponse({'error': 'Vehicle not found'}, status=404)
     else:
         return JsonResponse({'error': 'Vehicle ID not provided'}, status=400)
-
