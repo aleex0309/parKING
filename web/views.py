@@ -74,6 +74,20 @@ def reserve(request):
     
     return render(request, 'web/reserve.html', {'form': form})
 
+@login_required
+def new_car(request):
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            reservation = form.save(commit=False)
+            reservation.user = request.user
+            reservation.save()
+            return redirect('dashboard')
+    else:
+        form = ReservationForm()
+    
+    return render(request, 'web/new_car.html', {'form': form})
+
 
     #Parkings for each university
 def get_parkings_by_university(request):
