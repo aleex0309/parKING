@@ -17,8 +17,8 @@ def step_impl(context, username):
 @when(u'I register reservation at parking spot "UdL"')
 def step_impl(context):
     for row in context.table:
-        context.browser.visit(context.get_url('web:reserve'))
-        if context.browser.url == context.get_url('web:reserve'):
+        context.browser.visit(context.get_url('/reserve'))
+        if context.browser.url == context.get_url('/reserve'):
             form = context.browser.find_by_tag('form').first
             for heading in row.headings:
                 context.browser.fill(heading, row[heading])
@@ -37,10 +37,6 @@ def step_impl(context):
     from web.models import Reservation
     assert Reservation.objects.filter(*q_list).count() == 1
 
-@when(u'I edit the date of the reservation of the vehicle "12345ABC"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When I edit the date of the reservation of the vehicle "12345ABC"')
-
 
 @then(u'I\'m viewing the user dashboard with the reservation date updated')
 def step_impl(context):
@@ -49,11 +45,6 @@ def step_impl(context):
     q_list.append(Q(user=User.objects.get(username='user')))
     from web.models import Reservation
     assert Reservation.objects.filter(*q_list).count() == 1
-
-
-@when(u'I cancel the reservation for vehicle "12345ABC"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When I cancel the reservation for vehicle "12345ABC"')
 
 
 @then(u'I\'m viewing the user dashboard with the reservation cancelled')
@@ -73,6 +64,6 @@ def step_impl(context):
             setattr(parking_spot, heading, row[heading])
         parking_spot.save()
 
-
-
-
+@when(u'I edit the date of the reservation of the vehicle "12345ABC"')
+def step_impl(context):
+    context.browser.visit(context.get_url('/reserve/add_time/1'))
