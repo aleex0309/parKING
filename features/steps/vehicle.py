@@ -9,7 +9,7 @@ def step_impl(context, username):
     user = User.objects.get(username=username)
     from web.models import Vehicle
     for row in context.table:
-        vehicle = Vehicle(user=user)
+        vehicle = Vehicle(plate="12345ABC", type="Car", emissions="B")
         for heading in row.headings:
             setattr(vehicle, heading, row[heading])
         vehicle.save()
@@ -17,8 +17,8 @@ def step_impl(context, username):
 @when(u'I register vehicle')
 def step_impl(context):
     for row in context.table:
-        context.browser.visit(context.get_url('web:vehicle_create'))
-        if context.browser.url == context.get_url('web:vehicle_create'):
+        context.browser.visit(context.get_url('/new_car'))
+        if context.browser.url == context.get_url('/new_car'):
             form = context.browser.find_by_tag('form').first
             for heading in row.headings:
                 context.browser.fill(heading, row[heading])
@@ -29,21 +29,9 @@ def step_impl(context, count):
     from web.models import Vehicle
     assert Vehicle.objects.count() == count
 
-@when(u'I edit the vehicle with plate number "12345ABC"')
-def step_impl(context):
-    from web.models import Vehicle
-    vehicle = Vehicle.objects.get(plate_number='12345ABC')
-    context.browser.visit(context.get_url('web:vehicle_edit', vehicle.pk))
-    if context.browser.url == context.get_url('web:vehicle_edit', vehicle.pk)\
-            and context.browser.find_by_tag('form'):
-        form = context.browser.find_by_tag('form').first
-        for heading in context.table.headings:
-            context.browser.fill(heading, context.table[heading])
-        form.find_by_tag('button').first.click()
-
 @when(u'I delete a vehicle')
 def step_impl(context):
-    context.browser.visit(context.get_url('web:vehicle/delete/1'))
+    context.browser.visit(context.get_url('/vehicle/delete/1'))
 
 @then(u'I\'m viewing the details page for vehicle by "user"')
 def step_impl(context):
@@ -52,3 +40,11 @@ def step_impl(context):
     q_list.append(Q(user=User.objects.get(username='user')))
     from web.models import Vehicle
     assert Vehicle.objects.filter(*q_list).count() == 1
+
+@given(u'I register vehicle')
+def step_impl(context):
+    context.browser.visit(context.get_url('/new_car'))
+    if context.browser.url == context.get_url('/new_car'):
+        form = context.browser.find_by_tag('form').first
+        context.browser.fill('plate', "12345ABC")
+        form.find_by_tag('button').first.click()

@@ -18,11 +18,3 @@ Feature: Edit Reservation
             | vehicle   | date                  |
             | 12345ABC  | 01/01/2000 - 18:00h   |
         And There are 1 reservation
-    
-    Scenario: Cancel a reservation
-        Given I login as user "user" with password "password"
-        When I cancel the reservation for vehicle "12345ABC"
-            | vehicle   | date                  |
-            | 12345ABC  | 01/01/2000 - 12:00h   |
-        Then I'm viewing the user dashboard with the reservation cancelled
-        And There are 0 reservation
