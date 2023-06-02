@@ -92,16 +92,16 @@
       }
     </style>
   </head>
-  <body>
-    <header>
-      <h1>ParKING</h1>
+  <body vocab="https://schema.org/">
+    <header typeof="ParkingFacility">
+      <h1 property="name">ParKING</h1>
         <a class="login_button" href="{% url 'login' %}">Login</a>
     </header>
     <div class="container">
       <h2>Universities</h2>
-      <ul>
+      <ul typeof="CollegeOrUniversity">
         {% for university in universities %}
-        <li><a href="{% url 'parkings' university.id %}">{{ university.name }}</a></li>
+        <li><a property="legalName" href="{% url 'parkings' university.id %}">{{ university.name }}</a></li>
         {% endfor %}
       </ul>
     </div>

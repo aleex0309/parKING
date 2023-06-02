@@ -77,15 +77,15 @@
       }
     </style>
   </head>
-  <body>
-    <header>
-      <h1>{{ university.name }} - Parking</h1>
+  <body vocab="https://schema.org/">
+    <header typeof="CollegeOrUniversity">
+      <h1  property="legalName" >{{ university.name }} - Parking</h1>
     </header>
     <div class="container">
       <h2>Parkings</h2>
-      <ul>
+      <ul typeof="CollegeOrUniversity">
         {% for parking in parkings %}
-          <li>
+          <li property="location">
             <a href="{% url 'parkingSpots' university.id parking.id %}">{{ parking.description }}</a>
           </li>
         {% endfor %}
